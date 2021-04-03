@@ -1,0 +1,40 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+.row-content{
+    margin: 0px auto;
+    border-bottom: 1px ridge;
+    
+}
+#instructbtn{
+    border: 2px solid white;
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
+    cursor: pointer;
+}
+#instructbtn:hover{
+    background-color:white;
+    color: black;
+}
+#box-2{
+    height: 80vh;
+    overflow-y: hidden;
+}
+#main{
+    margin-top: 10px;
+}
+#player , #dealer{
+    background-color: green;
+}
+#buttons{
+    margin: 5px 0px;
+}
+.gameboard{
+    height: 100%;
+}
+.cards{
+    height: 80%;
+    overflow-y: auto;
+}
