@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
         <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="./style.css"> 
+        <link rel="stylesheet" href="./css/style.css"> 
     <title>BlackJack Game</title>
 </head>
 <body>
@@ -39,7 +39,7 @@
     <div class="container" id="main">
         <div class="row">
             <div class="col d-flex justify-content-center">
-                <h1>Play</h1>
+                <h1 id="commentator">Play</h1>
 
             </div>
         </div>
@@ -48,43 +48,23 @@
                 <div class="row justify-content-center">
                     <h1 id="pscore">Player</h1>
                 </div>
-                <div class="cards">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
+                <div id="playerCard" class="cards">
                 </div>
             </div>
             <div class="col-6 gameboard" id="dealer" style="border: 2px solid black;">
                 <div class="row justify-content-center">
                     <h1 id="dscore">Dealer</h1>
                 </div>
-                <div class="cards">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
-                    <img src="./img/c1.png" alt="">
+                <div id="dealerCard" class="cards" >
                 </div>
                 
             </div>
         </div>
         <div id="buttons" class="row justify-content-center">
             <div class="col-sm-3 d-flex justify-content-center">
-                <button class="btn btn-success btn-lg mx-auto">HIT</button>
-                <button class="btn btn-warning btn-lg mx-auto">STAND</button>
-                <button class="btn btn-primary btn-lg mx-auto">DEAL</button>
+                <button id="hit" class="btn btn-success btn-lg mx-auto">HIT</button>
+                <button id="stand" class="btn btn-warning btn-lg mx-auto">STAND</button>
+                <button id="deal" class="btn btn-primary btn-lg mx-auto">DEAL</button>
             </div>
         </div>
         <div class="row">
@@ -99,9 +79,9 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>0</td>
-                          <td>0</td>
-                          <td>0</td>
+                          <td id="win">0</td>
+                          <td id="loss" >0</td>
+                          <td id="draw" >0</td>
                         </tr>
                       </tbody>
                     
@@ -112,5 +92,6 @@
     <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 </html>

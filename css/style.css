@@ -38,3 +38,9 @@ body{
     height: 80%;
     overflow-y: auto;
 }
+.invisible{
+    visibility: hidden;
+}
+#commentator{
+    visibility: visible;
+}
