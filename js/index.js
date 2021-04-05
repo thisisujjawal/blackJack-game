@@ -35,11 +35,14 @@ var blink = ()=>{
 }
 var restart = ()=>{
     restartcardDeck();
+    if(blinkID != 0)clearInterval(blinkID); 
     hitButton.setAttribute("onclick" , "hit()");
     standButton.setAttribute("onclick" , "stand()");
     dealButton.setAttribute("onclick" , "deal()");
     hitButton.classList.remove("disabled");
     standButton.classList.remove("disabled");
+    commentatorElement.classList.remove("bust");
+    commentatorElement.classList.remove("invisible");
     playerScore = 0;
     dealerScore = 0;
     playerScoreElement.innerText = "Player";
@@ -48,7 +51,6 @@ var restart = ()=>{
     commentatorElement.innerText = commentatorText;
     deckLength = cardDeck.length;
     playerTurns = 0;
-    if(blinkID != 0)clearInterval(blinkID); 
     blinkID = 0;
     playerCardsElement.innerText="";
     dealerCardsElement.innerText="";
@@ -101,7 +103,7 @@ var hit = ()=>{
     if(playerScore > 21){
         commentatorText = "BUST";
         commentatorElement.innerText = commentatorText;
-        
+        commentatorElement.classList.add("bust");
         lossScore++;
         lossElement.innerText = lossScore;
         blink();
@@ -126,23 +128,26 @@ var stand = ()=>{
         dealerScoreElement.innerText = `Dealer: ${dealerScore}`;
         if(dealerScore > playerScore || dealerScore > 17){
             clearInterval(id);
+            standCallback();
         }
     },1000);
-    if(dealerScore < playerScore || dealerScore > 21){
-        commentatorText = "YOU WIN";
-        commentatorElement.innerText = commentatorText;
-        winScore++;
-        winElement.innerText = winScore;
-    }else if(dealerScore == playerScore){
-        commentatorText = "DRAW";
-        commentatorElement.innerText = commentatorText;
-        drawScore++;
-        drawlement.innerText = drawScore;
-    }else{
-        commentatorText = "YOU LOSS";
-        commentatorElement.innerText = commentatorText;
-        lossScore++;
-        lossElement.innerText = lossScore;
+    var standCallback = ()=>{
+        if(dealerScore < playerScore || dealerScore > 21){
+            commentatorText = "YOU WIN";
+            commentatorElement.innerText = commentatorText;
+            winScore++;
+            winElement.innerText = winScore;
+        }else if(dealerScore == playerScore){
+            commentatorText = "DRAW";
+            commentatorElement.innerText = commentatorText;
+            drawScore++;
+            drawlement.innerText = drawScore;
+        }else{
+            commentatorText = "YOU LOSS";
+            commentatorElement.innerText = commentatorText;
+            lossScore++;
+            lossElement.innerText = lossScore;
+        }
     }
 }
 var deal = ()=>{

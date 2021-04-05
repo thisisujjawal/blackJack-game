@@ -44,3 +44,6 @@ body{
 #commentator{
     visibility: visible;
 }
+.bust{
+    color: red;
+}
