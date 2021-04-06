@@ -187,6 +187,7 @@ var stand = ()=>{
     }
 }
 var deal = ()=>{
+    memeSoundElement.pause();
     restart();
 }
 restart();
