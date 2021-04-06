@@ -22,6 +22,8 @@ var dealerScoreElement = document.querySelector("#dscore");
 var hitButton = document.querySelector("#hit");
 var standButton = document.querySelector("#stand");
 var dealButton = document.querySelector("#deal");
+var cardSoundElement = document.querySelector("#cardSound");
+var memeSoundElement = document.querySelector("#memeSound");
 
 //functions
 var blink = ()=>{
@@ -68,6 +70,33 @@ var cardImgMaker = (num)=>{
     let imgText = `<img src="./img/${num}.png">`
     return imgText;
 }
+var winSound = ()=>{
+    let num = Math.floor((Math.random()*100) + 1);
+    num %= 6;
+    num++;
+    let soundTemp = `./sound/win/${num}.mp3`;
+    memeSoundElement.children[0].setAttribute("src" ,soundTemp);
+    memeSoundElement.load();
+    memeSoundElement.play();
+}
+var lossSound = ()=>{
+    let num = Math.floor((Math.random()*100) + 1);
+    num %= 8;
+    num++;
+    let soundTemp = `./sound/loss/${num}.mp3`;
+    memeSoundElement.children[0].setAttribute("src" ,soundTemp);
+    memeSoundElement.load();
+    memeSoundElement.play();
+}
+var drawSound = ()=>{
+    let num = Math.floor((Math.random()*100) + 1);
+    num %= 3;
+    num++;
+    let soundTemp = `./sound/draw/${num}.mp3`;
+    memeSoundElement.children[0].setAttribute("src" ,soundTemp);
+    memeSoundElement.load();
+    memeSoundElement.play();
+}
 var cardPicker = ()=>{
     let num = Math.floor((Math.random()*100));
     num %= deckLength;
@@ -79,6 +108,7 @@ var cardPicker = ()=>{
 }
 
 var hit = ()=>{
+    cardSoundElement.play();
     playerTurns++;
     let cardPick = cardPicker();
     var cardImgElement  = cardImgMaker(cardPick);
@@ -86,13 +116,14 @@ var hit = ()=>{
     let tempScore = cardPick%13;
     if(tempScore == 0 || tempScore == 11 || tempScore == 12) tempScore = 10;
     else if(tempScore == 1){
-        tempScore = parseInt(prompt("you have got an ace Card. Which value do you want to have 1 or 11."));
-        while(tempScore > 1 && tempScore < 11){
-            alert("You can choose 1 or 11 only");
-            tempScore = parseInt(prompt("you have got an ace Card. Which value do you want to have 1 or 11."));
+        tempScore = prompt("you have got an ace Card. Which value do you want to have 1 or 11.");
+        while((tempScore != "1" && tempScore != "11") || tempScore == null){
+            if(tempScore != null)alert("You can choose 1 or 11 only");
+            else alert("You have to choose either 1 or 11. You can't cancel it.");
+            tempScore = prompt("you have got an ace Card. Which value do you want to have 1 or 11.");
         }
     }
-    playerScore += tempScore;
+    playerScore += parseInt(tempScore);
     playerScoreElement.innerText = `Player: ${playerScore}`;
     if(playerTurns == 2 && playerScore == 21){
         commentatorText = "BLACKJACK";
@@ -101,6 +132,7 @@ var hit = ()=>{
         hitButton.classList.add("disabled")
     }
     if(playerScore > 21){
+        lossSound();
         commentatorText = "BUST";
         commentatorElement.innerText = commentatorText;
         commentatorElement.classList.add("bust");
@@ -115,6 +147,7 @@ var stand = ()=>{
     standButton.removeAttribute("onclick", "stand()");
     standButton.classList.add("disabled");
     let id = setInterval(()=>{
+        cardSoundElement.play();
         let cardPick = cardPicker();
         var cardImgElement = cardImgMaker(cardPick);
         dealerCardsElement.insertAdjacentHTML("beforeend" , cardImgElement);
@@ -137,16 +170,19 @@ var stand = ()=>{
             commentatorElement.innerText = commentatorText;
             winScore++;
             winElement.innerText = winScore;
+            winSound();
         }else if(dealerScore == playerScore){
             commentatorText = "DRAW";
             commentatorElement.innerText = commentatorText;
             drawScore++;
             drawlement.innerText = drawScore;
+            drawSound();
         }else{
             commentatorText = "YOU LOSS";
             commentatorElement.innerText = commentatorText;
             lossScore++;
             lossElement.innerText = lossScore;
+            lossSound();
         }
     }
 }
